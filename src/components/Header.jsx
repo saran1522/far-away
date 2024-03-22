@@ -2,18 +2,9 @@ export default function Header(props) {
   return (
     <div className="container">
       <div>
-        <h1>Far Away</h1>
-        <p>
-          Your travel partner which never let yo forget your travel essential
-        </p>
+        <h1>To Do</h1>
         <div className="inp-container">
-          <form onSubmit={props.handleSubmit}>
-            <input
-              type="number"
-              name="quant"
-              value={props.quant}
-              onChange={props.handleNumChange}
-            />
+          <form onSubmit={props.handleSubmit} className="input-form">
             <input
               type="text"
               name=""
@@ -21,7 +12,6 @@ export default function Header(props) {
               value={props.desc}
               onChange={props.handleDescChange}
             />
-            <button type="submit">Add</button>
           </form>
         </div>
       </div>
