@@ -1,6 +1,11 @@
+:root {
+  /* --baseCOl: rgb(251, 181, 131); */
+  --baseCOl: rgb(63, 244, 186);
+}
+
 * {
-  margin: 0;
-  padding: 0;
+  margin: 0px;
+  padding: 0px;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   text-align: center;
   font-size: 1.3rem;
@@ -9,7 +14,9 @@
 
 body {
   height: 100vh;
-  background: linear-gradient(to bottom right, rgb(132, 205, 248), rgb(143, 255, 238), rgb(200, 229, 255))
+  background-color: rgb(20, 21, 28);
+  color: white;
+  /* background: linear-gradient(to bottom right, rgb(132, 205, 248), rgb(143, 255, 238), rgb(200, 229, 255)) */
 }
 
 h1 {
@@ -19,20 +26,31 @@ h1 {
 
 .list {
   width: 100%;
-  height: 180px;
-  /* border: 1px solid black; */
+  /* height: 200px; */
+  /* border: 1px solid white; */
   display: flex;
-  flex-wrap: wrap;
-  justify-content: flex-start;
-  justify-content: center;
-  margin: 20px auto
+  flex-direction: column;
+  justify-content: space-around;
+  gap: 20px;
+  align-items: center;
+  margin: 20px 0px;
+  /* overflow: auto; */
+  /* padding: 5%;/ */
 }
 
 li {
   list-style: none;
   font-size: 1rem;
   display: flex;
+  justify-content: space-around;
   margin: 0 10px;
+  background-color: var(--baseCOl);
+  height: fit-content;
+  width: 60%;
+  padding: 8px 10px;
+  border-radius: 8px;
+  color: black;
+  cursor: pointer;
 }
 
 #remove {
@@ -42,4 +60,61 @@ li {
 #removeBtn {
   cursor: pointer;
   margin-top: 25px;
+}
+
+.inp-container {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.input-form {
+  /* background-color: antiquewhite; */
+  display: flex;
+  width: 60%;
+  height: 50px;
+  justify-content: space-between;
+  /* border: 1px solid green; */
+}
+
+.input-form input {
+  border: 2px solid var(--baseCOl);
+  border-radius: 5px;
+  height: 100%;
+  width: 100%;
+  color: white;
+  background: transparent;
+}
+
+input:focus {
+  outline: none;
+}
+
+.remove-icon {
+  /* background-color: rgb(248, 90, 90);
+  background-color: rgb(5, 104, 46); */
+  border-radius: 50%;
+  height: 5%;
+  width: 5%;
+}
+
+.remove-icon:hover {
+  /* background-color: red;
+  background-color: rgb(248, 90, 90); */
+  color: rgb(255, 35, 35);
+  transition: .2s ease;
+}
+
+.item-name {
+  width: 80%;
+}
+
+.add-btn,
+.remove-btn {
+  background-color: var(--baseCOl);
+  padding: 10px;
+  border: 1px solid var(--baseCOl);
+  border-radius: 5px;
+  color: rgb(3, 41, 45);
 }

@@ -3,25 +3,17 @@ import { nanoid } from "nanoid";
 import "./App.css";
 import Header from "./components/Header";
 import Items from "./components/Items";
-import Buttons from "./components/Buttons";
 
 function App() {
-  const addeditems = [
-    { id: nanoid(), quant: 2, desc: "shirts", checked: false },
-    { id: nanoid(), quant: 2, desc: "pants", checked: false },
-    { id: nanoid(), quant: 1, desc: "laptop", checked: false },
-    { id: nanoid(), quant: 5, desc: "food items", checked: false },
-  ];
-  const [items, setItems] = useState(addeditems);
+  const [items, setItems] = useState(
+    localStorage.getItem("items")
+      ? JSON.parse(localStorage.getItem("items"))
+      : []
+  );
   const [desc, setDesc] = useState("");
-  const [quant, setQuant] = useState(1);
 
   function handleDescChange(e) {
     setDesc(e.target.value);
-  }
-
-  function handleNumChange(e) {
-    setQuant(e.target.value);
   }
 
   function handleCheck(itemId) {
@@ -37,22 +29,27 @@ function App() {
     if (!desc) return;
     const newItem = {
       id: nanoid(),
-      quant,
       desc,
       checked: false,
     };
     setItems((prevItems) => [...prevItems, newItem]);
+    localStorage.setItem("items", JSON.stringify([...items, newItem]));
     setDesc("");
-    setQuant(1);
   }
 
   function handleDelete(itemId) {
     setItems((prevItem) => prevItem.filter((item) => item.id !== itemId));
+    localStorage.setItem(
+      "items",
+      JSON.stringify(items.filter((item) => item.id !== itemId))
+    );
   }
 
   function handleRemoveAll() {
-    if (confirm("Do you want to clear the list?")) setItems([]);
-    // setItems((prevItems) => prevItems.splice(0, prevItems.length)); this will also work
+    if (confirm("Do you want to clear the list?")) {
+      setItems([]);
+      localStorage.setItem("items", JSON.stringify([]));
+    }
   }
 
   return (
@@ -60,16 +57,14 @@ function App() {
       <Header
         desc={desc}
         handleDescChange={handleDescChange}
-        quant={quant}
-        handleNumChange={handleNumChange}
         handleSubmit={handleSubmit}
       />
       <Items
         items={items}
         handleDelete={handleDelete}
         handleCheck={handleCheck}
+        handleRemoveAll={handleRemoveAll}
       />
-      <Buttons handleRemoveAll={handleRemoveAll} />
     </div>
   );
 }

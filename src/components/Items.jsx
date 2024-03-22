@@ -1,27 +1,25 @@
-import { useState } from "react";
-
 export default function Items(props) {
   const noOfItems = props.items.length;
   const packedItems = props.items.filter((item) => item.checked).length;
   const packedPercentage = Math.round((packedItems / noOfItems) * 100);
-  const sortValues = ["item name", "packed", "add sequence"];
-  const [sortBy, setSort] = useState("add sequence");
-  let sortedItems = [];
-  if (sortBy === "add sequence") sortedItems = props.items;
-  if (sortBy === "item name") {
-    sortedItems = props.items
-      .slice()
-      .sort((a, b) => a.desc.localeCompare(b.desc));
-  }
-  if (sortBy === "packed") {
-    sortedItems = props.items
-      .slice()
-      .sort((a, b) => Number(a.checked) - Number(b.checked));
-  }
+  // const sortValues = ["task name", "done", "add sequence"];
+  // const [sortBy, setSort] = useState("add sequence");
+  // const sortedItems = [];
+  // if (sortBy === "add sequence") sortedItems = props.items;
+  // if (sortBy === "task name") {
+  //   sortedItems = props.items
+  //     .slice()
+  //     .sort((a, b) => a.desc.localeCompare(b.desc));
+  // }
+  // if (sortBy === "done") {
+  //   sortedItems = props.items
+  //     .slice()
+  //     .sort((a, b) => Number(a.checked) - Number(b.checked));
+  // }
 
   return (
     <div className="item-container">
-      <div className="sort">
+      {/* <div className="sort">
         <label htmlFor="sorts">sort by: </label>
         <select
           name=""
@@ -31,42 +29,56 @@ export default function Items(props) {
             setSort(e.target.value);
           }}
         >
-          {sortValues.map((srtval) => (
-            <option value={srtval} key={Math.floor(Math.random() * 1121224242)}>
+          {sortValues.map((srtval, i) => (
+            <option value={srtval} key={i}>
               {srtval}
             </option>
           ))}
         </select>
-      </div>
+      </div> */}
       <ul className="list">
-        {sortedItems.map((item) => (
+        {props.items.map((item) => (
           <li
-            style={item.checked ? { textDecoration: "line-through" } : {}}
             key={item.id}
+            onClick={() => {
+              props.handleCheck(item.id);
+            }}
           >
-            <span>
-              <input
-                type="checkbox"
-                name="check"
-                id="inp"
-                value={item.checked}
-                onChange={() => {
-                  props.handleCheck(item.id);
-                }}
-              />
+            <span
+              className="item-name"
+              style={
+                item.checked
+                  ? { textDecoration: "line-through", color: "grey" }
+                  : {}
+              }
+            >
+              {item.desc}
             </span>
-            <span>{item.quant}</span>
-            <span>{item.desc}</span>
-            <span id="remove" onClick={() => props.handleDelete(item.id)}>
-              ❌
+            <span
+              id="remove"
+              className="remove-icon"
+              onClick={() => props.handleDelete(item.id)}
+            >
+              ✖
             </span>
           </li>
         ))}
       </ul>
       <div className="message">
         {props.items.length
-          ? `you have ${noOfItems} items and you have packed ${packedItems} (${packedPercentage}%)`
-          : "Add your 1st Item"}
+          ? `you have ${noOfItems} tasks and you have done ${packedItems} (${packedPercentage}%)`
+          : "Add your 1st Task"}
+      </div>
+      <div className="btn-container">
+        {props.items.length > 0 && (
+          <button
+            id="removeBtn"
+            className="remove-btn"
+            onClick={props.handleRemoveAll}
+          >
+            Remove All
+          </button>
+        )}
       </div>
     </div>
   );
